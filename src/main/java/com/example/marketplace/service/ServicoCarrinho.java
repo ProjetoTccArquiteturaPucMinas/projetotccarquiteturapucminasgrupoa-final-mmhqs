@@ -29,19 +29,19 @@ public class ServicoCarrinho {
         switch(categoria)
         {
             case CAPINHA:
-                desconto = BigDecimal.valueOf(0.03);
+                desconto = BigDecimal.valueOf(3);
                 break;
             case CARREGADOR:
-                desconto = BigDecimal.valueOf(0.05);
+                desconto = BigDecimal.valueOf(5);
                 break;
             case FONE:
-                desconto = BigDecimal.valueOf(0.03);
+                desconto = BigDecimal.valueOf(3);
                 break;
             case PELICULA:
-                desconto = BigDecimal.valueOf(0.02);
+                desconto = BigDecimal.valueOf(2);
                 break;
             case SUPORTE:
-                desconto = BigDecimal.valueOf(0.02);
+                desconto = BigDecimal.valueOf(2);
                 break;
             default:
                 break;
@@ -54,15 +54,13 @@ public class ServicoCarrinho {
         int quantidadeTotal = itens.stream()
                 .mapToInt(ItemCarrinho::getQuantidade)
                 .sum();
-    
         if (quantidadeTotal == 2) {
-            return BigDecimal.valueOf(0.05);
+            return BigDecimal.valueOf(5);
         } else if (quantidadeTotal == 3) {
-            return BigDecimal.valueOf(0.07); 
+            return BigDecimal.valueOf(7); 
         } else if (quantidadeTotal >= 4) {
-            return BigDecimal.valueOf(0.10); 
+            return BigDecimal.valueOf(10); 
         }
-
         return desconto;
     }
 
@@ -92,30 +90,21 @@ public class ServicoCarrinho {
         // =======================================================
         // Calcula desconto considerando a categoria de cada item
         // ========================================================
-        BigDecimal valorDescontoPorItem = itens.stream()
-                .map(item -> item.calcularSubtotal()
-                        .multiply(calcularDescontoPorItem(item)))
+        BigDecimal percentualDescontoPorItem = itens.stream()
+                .map(item -> calcularDescontoPorItem(item))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         // =====================================================
         // Calcula desconto considerando a quantidade de itens
         // ======================================================
-        BigDecimal valorDescontoQuantidade = calcularDescontoPorQuantidade(itens).multiply(subtotal);
+        BigDecimal percentualDescontoQuantidade = calcularDescontoPorQuantidade(itens);
 
         // =================================================================
         // Calcula desconto = valorDescontoPorItem + valorDescontoQuantidade
         // =================================================================
-        BigDecimal valorDescontoParcial = valorDescontoPorItem.add(valorDescontoQuantidade);
+        BigDecimal percentualDesconto = percentualDescontoPorItem.add(percentualDescontoQuantidade);
 
-        // =======================================
-        // Calcula percentual de desconto aplicado
-        // =======================================
-        BigDecimal percentualDesconto = valorDescontoParcial.divide(subtotal);
-        if(percentualDesconto.compareTo(BigDecimal.valueOf(0.25)) > 0) {
-            percentualDesconto = BigDecimal.valueOf(0.25);
-        }
-
-        BigDecimal valorDesconto = percentualDesconto.multiply(subtotal);
+        BigDecimal valorDesconto = percentualDesconto.divide(BigDecimal.valueOf(100)).multiply(subtotal);
 
         // =======================
         // Calcula total
