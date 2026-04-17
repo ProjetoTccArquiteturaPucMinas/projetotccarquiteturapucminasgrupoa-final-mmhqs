@@ -1,6 +1,6 @@
 # Sistema de Cálculo de Descontos para Marketplace
 
-## Seu Nome: 
+## Seu Nome: Mariana Almeida Henriques
 
 ## Visão Geral do Projeto
 
