@@ -5,11 +5,17 @@ Este projeto faz parte de um experimento acadêmico para avaliar esforço de com
 
 ## Sua tarefa
 1. Identificar a arquitetura usada no projeto.
+Arquitetura de camadas.
 2. Justificar com base na estrutura do código.
+É possível vislumbrar a arquitetura de camadas pela presença do controller, service e model.
 3. Identificar a classe que deve ser alterada
+O arquivo `ServicoCarrinho.java`.
 4. Implementar a feature de cálculo de descontos no carrinho.
+Feito no arquivo `ServicoCarrinho.java`.
 5. Realizar testes de ponta a ponta para validar a implementação.
+Ok!
 6. Executar os testes até que todos passem.
+Testes existentes no repositório executados com sucesso!
 
 ## Regras que precisam ser implementadas
 
